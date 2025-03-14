@@ -10,32 +10,37 @@ interface VideoPreviewProps {
 const VideoPreview: React.FC<VideoPreviewProps> = ({ videoUrl, onReset }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
+  // const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const videoElement = videoRef.current;
 
-    if (!videoElement) return;
+    if (!videoElement) {
+      console.warn("Video element not found.");
+      return; // Exit early if ref is null
+    }
 
-    const handleTimeUpdate = () => {
-      if (videoElement.duration) {
-        setProgress((videoElement.currentTime / videoElement.duration) * 100);
-      }
-    };
+    console.log("Video element:", videoElement);
+    console.log("Video srcObject:", videoElement.srcObject);
+    // const handleTimeUpdate = () => {
+    //   if (videoElement.duration) {
+    //     setProgress((videoElement.currentTime / videoElement.duration) * 100);
+    //   }
+    // };
 
     const handleEnded = () => {
       setIsPlaying(false);
-      setProgress(0);
+      // setProgress(0);
       if (videoElement) {
         videoElement.currentTime = 0;
       }
     };
 
-    videoElement.addEventListener("timeupdate", handleTimeUpdate);
+    // videoElement.addEventListener("timeupdate", handleTimeUpdate);
     videoElement.addEventListener("ended", handleEnded);
 
     return () => {
-      videoElement.removeEventListener("timeupdate", handleTimeUpdate);
+      // videoElement.removeEventListener("timeupdate", handleTimeUpdate);
       videoElement.removeEventListener("ended", handleEnded);
     };
   }, []);
@@ -69,7 +74,7 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({ videoUrl, onReset }) => {
   // };
 
   return (
-    <div className="w-full animate-fade-in">
+    <div className="w-full h-auto animate-fade-in">
       <div className="techie-video-container">
         <video
           ref={videoRef}
@@ -78,14 +83,14 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({ videoUrl, onReset }) => {
           playsInline
         />
 
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        {/* <div className=" bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
           <div className="w-full bg-white/30 h-1 rounded-full overflow-hidden">
             <div
               className="bg-techie h-full rounded-full transition-all duration-100 ease-linear"
               style={{ width: `${progress}%` }}
             />
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="mt-6 flex flex-wrap gap-5 justify-center">

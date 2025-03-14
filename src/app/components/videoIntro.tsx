@@ -38,12 +38,28 @@ const VideoIntro: React.FC = () => {
     };
   }, [recordedVideoUrl]);
 
+  useEffect(() => {
+    if (
+      recordingState === "recording" &&
+      streamRef.current &&
+      videoRef.current
+    ) {
+      videoRef.current.srcObject = streamRef.current;
+
+      videoRef.current
+        .play()
+        .then(() => console.log("Video is playing."))
+        .catch((err) => console.error("Error playing video:", err));
+    }
+  }, [recordingState]);
+
   const startRecording = async () => {
     try {
       chunksRef.current = [];
       setShowIntro(false);
 
       const stream = await getMediaStream();
+      console.log("Media Stream:", stream);
       streamRef.current = stream;
 
       if (videoRef.current) {
@@ -167,8 +183,15 @@ const VideoIntro: React.FC = () => {
           )}
 
           {recordingState === "recording" && (
-            <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-4">
-              <div className="flex items-center space-x-2">
+            <div className="absolute top-0 left-0 right-0 flex items-center justify-between">
+              <video
+                ref={videoRef}
+                className="w-full h-full object-cover p-0"
+                playsInline
+                autoPlay
+                style={{ display: "block" }}
+              />
+              <div className="flex items-center space-x-2 z-50">
                 <div className="h-3 w-3 rounded-full bg-red-500 animate-pulse" />
                 <span className="text-white font-medium">Recording</span>
               </div>
