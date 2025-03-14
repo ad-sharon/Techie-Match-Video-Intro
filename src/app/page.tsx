@@ -7,7 +7,7 @@ import AppLayout from "../../layout/app-layout";
 const VideoIntroPage: React.FC = () => {
   return (
     <AppLayout>
-      <div className="min-h-screen">
+      <div className="min-h-screen max-w-[440px]">
         <main className="container mx-auto py-8">
           <VideoIntro />
         </main>
