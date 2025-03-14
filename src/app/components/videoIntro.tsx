@@ -151,7 +151,7 @@ const VideoIntro: React.FC = () => {
                 <div className="text-white text-center p-6 animate-scale-up">
                   <p className="text-gray-200 max-w-md mx-auto">
                     Record a short introduction about yourself, your interests,
-                    and what you're looking for.
+                    and what you&apos;re looking for.
                   </p>
                 </div>
               )}

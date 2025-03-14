@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Play, Pause, RotateCcw, Download, Upload } from "lucide-react";
+import { Play, Pause, RotateCcw, Download } from "lucide-react";
 import { toast } from "sonner";
 
 interface VideoPreviewProps {
@@ -63,10 +63,10 @@ const VideoPreview: React.FC<VideoPreviewProps> = ({ videoUrl, onReset }) => {
     toast.success("Video downloaded successfully!");
   };
 
-  const handleUpload = () => {
-    // In a real app, this would integrate with the backend
-    toast.success("Video uploaded to your profile!");
-  };
+  // const handleUpload = () => {
+  //   // In a real app, this would integrate with the backend
+  // toast.success("Video uploaded to your profile!");
+  // };
 
   return (
     <div className="w-full animate-fade-in">
